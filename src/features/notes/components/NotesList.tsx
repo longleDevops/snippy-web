@@ -1,3 +1,4 @@
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import type { Note } from "../models/Note";
 import NoteItem from "./NoteItem";
 
@@ -13,15 +14,17 @@ export default function NotesList({ notes, onEdit, onDelete }: NotesListProps) {
   }
 
   return (
-    <ul className="space-y-4">
-      {notes.map((note) => (
-        <NoteItem
-          key={note.id}
-          note={note}
-          onEdit={() => onEdit(note)}
-          onDelete={() => onDelete(note.id)}
-        />
-      ))}
-    </ul>
+    <ScrollArea className="p-4">
+      <ul className="space-y-4">
+        {notes.map((note) => (
+          <NoteItem
+            key={note.id}
+            note={note}
+            onEdit={() => onEdit(note)}
+            onDelete={() => onDelete(note.id)}
+          />
+        ))}
+      </ul>
+    </ScrollArea>
   );
 }

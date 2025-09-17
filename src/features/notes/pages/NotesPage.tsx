@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { getNotes, createNote, updateNote, deleteNote } from "../services/notesService";
 import type { Note } from "../models/Note";
-
+import { Button } from "@/components/ui/button";
 import NotesList from "../components/NotesList";
 import NoteForm from "../components/NoteForm";
 import type { NoteCreateRequest, NoteUpdateRequest } from "../models/NoteRequest";
+import AddNote from "../components/AddNote";
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -27,11 +28,6 @@ export default function NotesPage() {
     loadNotes();
   }, []);
 
-  const handleCreate = async (note: NoteCreateRequest) => {
-    const created = await createNote(note);
-    setNotes([...notes, created]);
-  };
-
   const handleUpdate = async (note: NoteUpdateRequest, id: string) => {
     const updated = await updateNote(note, id);
     setNotes(notes.map((n) => (n.id === updated.id ? updated : n)));
@@ -47,24 +43,25 @@ export default function NotesPage() {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-center">Notes Manager</h1>
+    <div className="bg-blue-200 flex w-screen h-screen">
+      <div className="w-100 bg-red-200 p-2 h-full flex flex-col">
+        <div className="flex justify-between p-4 border-red-600 border-1 items-center">
+          <p>My notes</p>
+          <AddNote onNoteCreated={loadNotes}/>
+        </div>
 
-      {/* Notes List */}
-      <NoteForm
-        key={editingNote ? editingNote.id : "new"}
-        note={editingNote}
-        onCreate={handleCreate}
-        onUpdate={handleUpdate}
-        onCancel={() => setEditingNote(null)}
-      />
+        <NotesList
+          notes={notes}
+          onEdit={setEditingNote}
+          onDelete={handleDelete}
+        />
+      </div>
 
-      {/* Notes List */}
-      <NotesList
-        notes={notes}
-        onEdit={setEditingNote}
-        onDelete={handleDelete}
-      />
+      <div className="bg-brown-200">
+
+      </div>
+
+
     </div>
   );
 }

@@ -1,4 +1,14 @@
 import type { Note } from "../models/Note";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button} from "@/components/ui/button";
 
 interface NoteItemProps {
   note: Note;
@@ -6,26 +16,26 @@ interface NoteItemProps {
   onDelete: () => void;
 }
 
-export default function NoteItem({ note, onEdit, onDelete }: NoteItemProps) {
+export default function NoteItem({ note }: NoteItemProps) {
   return (
-    <li className="p-4 border rounded-xl shadow bg-white hover:shadow-md transition">
-      <h2 className="text-lg font-semibold">{note.title}</h2>
-      <p className="text-gray-600">{note.content}</p>
-
-      <div className="mt-3 flex gap-2">
-        <button
-          onClick={onEdit}
-          className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-        >
-          ✏️ Edit
-        </button>
-        <button
-          onClick={onDelete}
-          className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-        >
-          🗑 Delete
-        </button>
-      </div>
-    </li>
+    <Card className="w-full max-w-sm h-60">
+      <CardHeader>
+        <CardTitle>{note.title}</CardTitle>
+        <CardDescription>
+          //description
+        </CardDescription>
+      </CardHeader>
+      <CardContent >
+        {note.content}
+      </CardContent>
+      {/* <CardFooter className="flex-col gap-2">
+        <Button type="submit" className="w-full">
+          Login
+        </Button>
+        <Button variant="outline" className="w-full">
+          Login with Google
+        </Button>
+      </CardFooter> */}
+    </Card>
   );
 }
