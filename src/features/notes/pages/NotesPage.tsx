@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { getNotes, createNote, updateNote, deleteNote } from "../services/notesService";
+import { getNotes, deleteNote } from "../services/notesService";
 import type { Note } from "../models/Note";
-import { Button } from "@/components/ui/button";
 import NotesList from "../components/NotesList";
-import NoteForm from "../components/NoteForm";
-import type { NoteCreateRequest, NoteUpdateRequest } from "../models/NoteRequest";
 import AddNote from "../components/AddNote";
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [editingNote, setEditingNote] = useState<Note | null>(null);
+  const [, setEditingNote] = useState<Note | null>(null);
 
   const loadNotes = async () => {
+    console.log("Fetching notes...");
     try {
       const data = await getNotes();
+      console.log("Fetched notes data:", data);
       setNotes(data);
-    } catch {
+    } catch (error) {
+      console.error("Error fetching notes:", error);
       setError("Unable to load notes.");
     } finally {
       setLoading(false);
@@ -25,16 +25,12 @@ export default function NotesPage() {
   };
 
   useEffect(() => {
+    console.log("NotesPage mounted");
     loadNotes();
   }, []);
 
-  const handleUpdate = async (note: NoteUpdateRequest, id: string) => {
-    const updated = await updateNote(note, id);
-    setNotes(notes.map((n) => (n.id === updated.id ? updated : n)));
-    setEditingNote(null);
-  };
-
   const handleDelete = async (id: string) => {
+    console.log("Deleting note with id:", id);
     await deleteNote(id);
     // setNotes(notes.filter((n) => n.id !== id));
   };
