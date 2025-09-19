@@ -118,6 +118,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    @apply overflow-x-hidden overscroll-x-none touch-pan-y;
+  }
+
+  html {
+    @apply overflow-x-hidden overscroll-x-none touch-pan-y;
   }
 }
+
 

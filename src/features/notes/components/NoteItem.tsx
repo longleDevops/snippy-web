@@ -11,11 +11,16 @@ interface NoteItemProps {
   note: Note;
   onEdit: () => void;
   onDelete: () => void;
+  isSelected: boolean;
+  onClick: () => void;
 }
 
-export default function NoteItem({ note }: NoteItemProps) {
+export default function NoteItem({ note, isSelected, onClick }: NoteItemProps) {
   return (
-    <Card className="w-full max-w-sm h-60">
+    <Card
+      className={`w-full max-w-sm h-60 border-2 ${isSelected ? "border-blue-500" : "border-transparent"}`}
+      onClick={onClick}
+    >
       <CardHeader>
         <CardTitle>{note.title}</CardTitle>
         <CardDescription>

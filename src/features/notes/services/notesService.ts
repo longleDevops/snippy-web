@@ -3,7 +3,7 @@ import axios from "axios";
 import type { Note } from "../models/Note"
 import type { NoteCreateRequest, NoteUpdateRequest } from "../models/NoteRequest";
 
-const API_URL = "https://snippy-note-services-lelongdinh2015-dev.apps.rm1.0a51.p1.openshiftapps.com/api/v1/notes"; // replace with your Spring Boot endpoint
+const API_URL = import.meta.env.VITE_NOTES_API_URL!;
 
 interface NotesApiResponse {
   timestamp: string;

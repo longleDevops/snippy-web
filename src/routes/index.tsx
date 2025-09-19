@@ -7,8 +7,8 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-            <Route path="/notes" element={<NotesList />} />
-            <Route path="/" element={<User/>}/>
+        <Route path="/notes" element={<NotesList />} />
+        <Route path="/" element={<User/>}/>
       </Routes>
     </BrowserRouter>
   );
